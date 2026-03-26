@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+
+jobs:
+  helix_rev3:
+    runs-on: ubuntu-22.04
+    container:
+      image: qmkfm/qmk_cli
+    steps:
+      - uses: actions/checkout@v6
+      - run: qmk setup --yes
+      - run: ls -lF
+      - run: qmk config user.overlay_dir="$(realpath .)"
+      - run: qmk compile -kb helix/rev3_5rows -km via
+      - run: ls -lF
+
